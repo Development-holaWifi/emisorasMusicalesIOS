@@ -25,7 +25,7 @@ export const PortadaSearchItem = ({id, image, name}: Props) => {
         style={({pressed}) => [{opacity: pressed ? 0.5 : 1}, styles.btn]}>
         <Image source={image} style={styles.img} />
         <View style={styles.textName}>
-          <Text>{name}</Text>
+          <Text style={{color: '#ff0066'}}>{name}</Text>
         </View>
       </Pressable>
     </View>
@@ -39,6 +39,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     width: '90%',
     height: 100,
+    marginBottom: 10,
+    borderRadius: 10,
     borderWidth: 2,
     borderColor: 'black',
   },
@@ -50,13 +52,13 @@ const styles = StyleSheet.create({
   textName: {
     justifyContent: 'center',
     alignItems: 'center',
-    width: '70%',
+    width: '60%',
   },
 
   img: {
     width: 50,
     height: 50,
-    marginHorizontal: 3,
+    marginLeft: 40,
     borderRadius: 5,
   },
 });

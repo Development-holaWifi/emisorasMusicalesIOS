@@ -15,6 +15,7 @@ import {TopMenu} from '../../components/top-menu/TopMenu';
 import {BackgroundRadio} from '../../components/background-radio/BackgroundRadio';
 import {Carousel} from '../../components/carousel/Carousel';
 import {BottomMenu} from '../../components/bottom-menu/BottomMenu';
+import {useDetailsStore} from '../../../store/useDetailsStore';
 
 interface Props extends StackScreenProps<RootStackParams, 'Details'> {}
 
@@ -33,6 +34,16 @@ export const DetailsScreen = ({route, navigation}: Props) => {
       setStream(station.public_player_url);
     }
   }, [station?.public_player_url]);
+
+  const setLastId = useDetailsStore(state => state.setLastId);
+  const lastId = useDetailsStore(state => state.lastId);
+
+  useEffect(() => {
+    if (id === lastId) return;
+    if (id) {
+      setLastId(id);
+    }
+  }, [id]);
 
   const {height: screenHeight} = useWindowDimensions();
 

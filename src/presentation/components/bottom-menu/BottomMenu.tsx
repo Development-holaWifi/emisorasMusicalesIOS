@@ -2,6 +2,7 @@ import {Dimensions, Pressable, StyleSheet, Text, View} from 'react-native';
 import Icon from '@react-native-vector-icons/ionicons';
 import {NavigationProp} from '@react-navigation/native';
 import {RootStackParams} from '../../navigation/Navigation';
+import {useDetailsStore} from '../../../store/useDetailsStore';
 
 interface Props {
   navigation: NavigationProp<RootStackParams>;
@@ -9,19 +10,31 @@ interface Props {
 }
 
 export const BottomMenu = ({navigation, route}: Props) => {
+  const lastId = useDetailsStore(state => state.lastId);
+
   return (
     <View style={styles.container}>
       <Pressable
-        style={styles.button}
-        onPress={() => navigation.navigate('Home')}>
+        style={styles.pressable}
+        onPress={() => {
+          if (lastId !== null) {
+            navigation.navigate('Details', {id: lastId});
+          } else {
+            navigation.navigate('Home');
+          }
+        }}>
         <Icon
-          name={route.name === 'Home' ? 'home-sharp' : 'home-outline'}
+          name={
+            route.name === 'Home' || route.name === 'Details'
+              ? 'home-sharp'
+              : 'home-outline'
+          }
           size={25}
           color="white"
         />
       </Pressable>
       <Pressable
-        style={styles.button}
+        style={styles.pressable}
         onPress={() => navigation.navigate('Search')}>
         <Icon
           name={route.name === 'Search' ? 'search-sharp' : 'search-outline'}
@@ -30,7 +43,7 @@ export const BottomMenu = ({navigation, route}: Props) => {
         />
       </Pressable>
       <Pressable
-        style={styles.button}
+        style={styles.pressable}
         onPress={() => navigation.navigate('Favorites')}>
         <Icon
           name={route.name === 'Favorites' ? 'heart-sharp' : 'heart-outline'}
@@ -51,12 +64,15 @@ const styles = StyleSheet.create({
     zIndex: 1,
     flexDirection: 'row',
     justifyContent: 'space-around',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     width: '100%',
     height: height * 0.06,
     backgroundColor: '#FF0066',
   },
-  button: {
-    marginTop: 10,
+  pressable: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 40,
+    height: '100%',
   },
 });

@@ -1,8 +1,17 @@
 import React, {useEffect, useState} from 'react';
 
-import {View, StyleSheet, TouchableOpacity, Text} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native';
 
-import TrackPlayer, {usePlaybackState, State} from 'react-native-track-player';
+import TrackPlayer, {
+  usePlaybackState,
+  State,
+  useIsPlaying,
+} from 'react-native-track-player';
 
 import Icon from '@react-native-vector-icons/ionicons';
 
@@ -93,18 +102,24 @@ export const Player: React.FC<PruebaPlayerProps> = ({url, name}) => {
     }
   };
 
+  const {playing, bufferingDuringPlay} = useIsPlaying();
+
+  const renderButton = () => {
+    if (bufferingDuringPlay === true) {
+      return <ActivityIndicator size="large" color="#fff" />;
+    }
+
+    if (playing === true) {
+      return <Icon name="pause-outline" size={80} color="white" />;
+    }
+
+    return <Icon name="play-outline" size={80} color="white" />;
+  };
+
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={playPauseRadio}>
-        <Icon
-          name={
-            playbackState.state === State.Playing
-              ? 'pause-outline'
-              : 'play-outline'
-          }
-          size={80}
-          color="white"
-        />
+      <TouchableOpacity onPress={playPauseRadio} disabled={bufferingDuringPlay}>
+        {renderButton()}
       </TouchableOpacity>
     </View>
   );

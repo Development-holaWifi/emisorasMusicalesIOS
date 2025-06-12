@@ -4,10 +4,10 @@ import React from 'react';
 import {DetailsScreen} from '../screens/details/DetailsScreen';
 import {FavoritesScreen} from '../screens/favorites/FavoritesScreen';
 import {SearchScreen} from '../screens/search/SearchScreen';
-// import SplashScreen from '../screens/lottie/SplashScreen';
+import {SplashScreen} from '../screens/lottie/SplashScreen';
 
 export type RootStackParams = {
-  // Splash: undefined;
+  Splash: undefined;
   Home: undefined;
   Details: {id: number};
   Favorites: undefined;
@@ -19,7 +19,7 @@ const Stack = createStackNavigator<RootStackParams>();
 export const Navigation = () => {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
-      {/* <Stack.Screen name="Splash" component={SplashScreen} /> */}
+      <Stack.Screen name="Splash" component={SplashScreen} />
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen
         name="Details"

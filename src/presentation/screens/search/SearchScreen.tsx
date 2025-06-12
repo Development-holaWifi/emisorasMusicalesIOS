@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {
   FlatList,
   StyleSheet,
-  Text,
   TouchableOpacity,
   View,
   TextInput,
@@ -13,14 +12,14 @@ import {StackScreenProps} from '@react-navigation/stack';
 import {RootStackParams} from '../../navigation/Navigation';
 import {TopMenu} from '../../components/top-menu/TopMenu';
 import {BottomMenu} from '../../components/bottom-menu/BottomMenu';
-import {emisorasData} from '../../../api/EmisorasData'; // Asegúrate de importar Emisora
-import {PortadaEmisora} from '../../components/portada-emisora/PortadaEmisora';
+import {emisorasData} from '../../../api/EmisorasData';
 import Icon from '@react-native-vector-icons/ionicons';
 import {PortadaSearchItem} from '../../components/portada-search-item/PortadaSearchItem';
 
 interface Emisora {
   id: number;
   image: ImageSourcePropType;
+  banner?: ImageSourcePropType;
   background?: ImageSourcePropType;
   title: string;
   description: string;
@@ -45,12 +44,19 @@ export const SearchScreen = ({navigation, route}: Props) => {
   return (
     <>
       <TopMenu />
+
       <View style={styles.container}>
+        <TouchableOpacity
+          style={styles.backButton}
+          onPress={() => navigation.goBack()}>
+          <Icon name="arrow-back-outline" size={30} color="#ff0066" />
+        </TouchableOpacity>
         <View style={styles.inputContainer}>
           <Icon name={'search-outline'} color="#ff0066" size={25} />
           <TextInput
             style={styles.searchInput}
             placeholder="Buscar por nombre..."
+            placeholderTextColor="white"
             value={searchText}
             onChangeText={handleSearch}
           />
@@ -68,6 +74,7 @@ export const SearchScreen = ({navigation, route}: Props) => {
                 id={item.id}
                 name={item.title}
                 image={item.image}
+                banner={item.banner}
               />
             </TouchableOpacity>
           )}
@@ -83,7 +90,8 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     justifyContent: 'center',
-    backgroundColor: '#ff97b8',
+    backgroundColor: 'black',
+    marginBottom: 10,
   },
   title: {
     color: 'white',
@@ -97,23 +105,30 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'white',
-    marginVertical: 30,
+    marginBottom: 30,
+    backgroundColor: 'black',
+    borderWidth: 2,
+    borderColor: '#ff0066',
   },
   searchInput: {
     width: '80%',
     height: 50,
     marginLeft: 10,
-    borderColor: 'gray',
-    backgroundColor: 'white',
-    color: 'black',
+    backgroundColor: 'black',
+    color: 'white',
   },
   itemContainer: {
-    alignItems: 'center', // Centra la portada y el texto
+    alignItems: 'center', 
   },
   itemTitle: {
     color: 'white',
     marginTop: 5,
     textAlign: 'center',
+  },
+  backButton: {
+    color: '#ff0066',
+    paddingVertical: 10,
+    paddingLeft: 10,
+    backgroundColor: 'black',
   },
 });

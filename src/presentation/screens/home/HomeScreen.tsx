@@ -15,6 +15,7 @@ import {RootStackParams} from '../../navigation/Navigation';
 import {BackgroundRadio} from '../../components/background-radio/BackgroundRadio';
 import {Carousel} from '../../components/carousel/Carousel';
 import {BottomMenu} from '../../components/bottom-menu/BottomMenu';
+import {CarouselHome} from '../../components/carousel/CarouselHome';
 
 interface Props extends StackScreenProps<RootStackParams, 'Home'> {}
 
@@ -34,10 +35,12 @@ export const HomeScreen = ({navigation, route}: Props) => {
   return (
     <>
       <TopMenu />
-      <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+      {/* <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         <View style={{height: screenHeight * 0.68}}>
           {loading ? (
-            <ActivityIndicator size="large" color="#ff0066" />
+            <View style={styles.loaderContainer}>
+              <ActivityIndicator size="large" color="#ff0066" />
+            </View>
           ) : (
             <BackgroundRadio
               stream={'https://stream.emisorasmusicales.net/public/activa_fm'}
@@ -46,7 +49,8 @@ export const HomeScreen = ({navigation, route}: Props) => {
           )}
         </View>
         <Carousel />
-      </ScrollView>
+      </ScrollView> */}
+      <CarouselHome />
       <BottomMenu navigation={navigation} route={route} />
     </>
   );

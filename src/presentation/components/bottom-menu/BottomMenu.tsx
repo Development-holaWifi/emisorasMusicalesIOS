@@ -16,30 +16,36 @@ export const BottomMenu = ({navigation, route}: Props) => {
     <View style={styles.container}>
       <Pressable
         style={styles.pressable}
-        onPress={() => {
-          if (lastId !== null) {
-            navigation.navigate('Details', {id: lastId});
-          } else {
-            navigation.navigate('Home');
-          }
-        }}>
+        onPress={() => navigation.navigate('Home')}>
         <Icon
-          name={
-            route.name === 'Home' || route.name === 'Details'
-              ? 'home-sharp'
-              : 'home-outline'
-          }
+          name={route.name === 'Home' ? 'home-sharp' : 'home-outline'}
           size={25}
           color="white"
         />
       </Pressable>
+      {/* {lastId !== null && (
+        <Pressable
+          style={styles.pressable}
+          onPress={() => navigation.navigate('Details', {id: lastId})}>
+          <Icon
+            name={route.name === 'Details' ? 'radio-sharp' : 'radio-outline'}
+            size={25}
+            color="white"></Icon>
+        </Pressable>
+      )} */}
       <Pressable
         style={styles.pressable}
-        onPress={() => navigation.navigate('Search')}>
+        onPress={() => {
+          if (lastId !== null) {
+            navigation.navigate('Details', {id: lastId});
+          }
+        }}
+        disabled={lastId === null}>
+        <Text style={{color: 'white', fontSize: 10}}>Directo</Text>
         <Icon
-          name={route.name === 'Search' ? 'search-sharp' : 'search-outline'}
+          name={route.name === 'Details' ? 'radio-sharp' : 'radio-outline'}
           size={25}
-          color="white"
+          color={lastId === null ? 'gray' : 'white'}
         />
       </Pressable>
       <Pressable
@@ -72,7 +78,10 @@ const styles = StyleSheet.create({
   pressable: {
     alignItems: 'center',
     justifyContent: 'center',
-    width: 40,
+    width: 50,
     height: '100%',
+    marginBottom: 10,
   },
 });
+
+

@@ -14,6 +14,7 @@ import TrackPlayer, {
 } from 'react-native-track-player';
 
 import Icon from '@react-native-vector-icons/ionicons';
+import {usePlayerStore} from '../../../store/usePlayerStore';
 
 interface PruebaPlayerProps {
   url: string;
@@ -27,6 +28,8 @@ export const Player: React.FC<PruebaPlayerProps> = ({url, name}) => {
   const [initialized, setInitialized] = useState(false);
 
   const [currentUrl, setCurrentUrl] = useState<string | null>(null);
+
+  const setIsPlaying = usePlayerStore(state => state.setIsPlaying);
 
   useEffect(() => {
     const checkPlayer = async () => {
@@ -116,6 +119,11 @@ export const Player: React.FC<PruebaPlayerProps> = ({url, name}) => {
     return <Icon name="play-outline" size={80} color="white" />;
   };
 
+  useEffect(() => {
+    const playerIsPlaying = playbackState.state === State.Playing;
+    setIsPlaying(playerIsPlaying);
+  }, [playbackState]);
+
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={playPauseRadio} disabled={bufferingDuringPlay}>
@@ -127,12 +135,8 @@ export const Player: React.FC<PruebaPlayerProps> = ({url, name}) => {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-
     justifyContent: 'center',
-
     alignItems: 'center',
-
     width: '100%',
   },
 });

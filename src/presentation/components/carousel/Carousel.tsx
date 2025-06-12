@@ -29,14 +29,15 @@ export const Carousel = () => {
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 60,
-    paddingVertical: 10,
+    marginBottom: 70,
+    paddingVertical: 20,
+    paddingHorizontal: 8,
   },
   text: {
     color: 'white',
     fontSize: 16,
     fontWeight: 'bold',
-    marginBottom: 10,
-    marginLeft: 20,
+    marginBottom: 15,
+    marginLeft: 7,
   },
 });

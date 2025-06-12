@@ -1,19 +1,14 @@
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {
-  Image,
-  ImageSourcePropType,
-  Pressable,
-  StyleSheet,
-  View,
-} from 'react-native';
+import {Image, ImageSourcePropType, Pressable, View} from 'react-native';
 import {RootStackParams} from '../../navigation/Navigation';
 
 interface Props {
   id: number;
   image: ImageSourcePropType;
+  width: number;
 }
 
-export const PortadaEmisora = ({id, image}: Props) => {
+export const PortadasHome = ({id, image, width}: Props) => {
   const navigation = useNavigation<NavigationProp<RootStackParams>>();
 
   return (
@@ -21,17 +16,16 @@ export const PortadaEmisora = ({id, image}: Props) => {
       onPress={() => navigation.navigate('Details', {id})}
       style={({pressed}) => ({opacity: pressed ? 0.5 : 1})}>
       <View>
-        <Image source={image} style={styles.img} />
+        <Image
+          source={image}
+          style={{
+            width: width - 5,
+            height: width - 5,
+            borderRadius: 5,
+            resizeMode: 'cover',
+          }}
+        />
       </View>
     </Pressable>
   );
 };
-
-const styles = StyleSheet.create({
-  img: {
-    width: 110,
-    height: 110,
-    marginHorizontal: 4,
-    borderRadius: 5,
-  },
-});

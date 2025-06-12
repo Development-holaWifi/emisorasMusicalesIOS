@@ -2,7 +2,7 @@ import {create} from 'zustand';
 
 type DetailsStore = {
   lastId: number | null;
-  setLastId: (id: number) => void;
+  setLastId: (id: number|null) => void;
 };
 
 export const useDetailsStore = create<DetailsStore>(set => ({

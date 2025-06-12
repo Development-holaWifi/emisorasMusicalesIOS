@@ -58,7 +58,7 @@ export const DetailsScreen = ({route, navigation}: Props) => {
               <Text style={styles.loaderText}>Cargando...</Text>
             </View>
           ) : (
-            <BackgroundRadio stream={stream} back={radioBack} />
+            <BackgroundRadio stream={stream} back={radioBack} id={id} />
           )}
         </View>
         <Carousel />
